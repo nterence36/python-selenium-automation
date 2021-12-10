@@ -14,12 +14,14 @@ driver.get('https://www.amazon.com/gp/help/customer/display.html')
 search = driver.find_element(By.XPATH, "//input[@type='search']")
 search.send_keys('cancel orders')
 search.send_keys(Keys.ENTER)
-# OR driver.find_element(By.ID, 'helpsearch').send_keys('Cancel Order', Keys.ENTER)
-actual_result = driver.find_element(By.XPATH, "//*[contains(text(), 'Cancel Items and Orders')]").text
-# actual_result = driver.find_element(By.XPATH, "//div[@class='help-content']/h1").text
-expected_result = 'Cancel Items and Orders'
 
-assert actual_result == expected_result, f'Error,actual {actual_result} did not match our expected {expected_result}'
+# OR driver.find_element(By.ID, 'helpsearch').send_keys('Cancel Order', Keys.ENTER)
+#actual_result = driver.find_element(By.XPATH, "//*[contains(text(), 'Cancel Items or Orders')]").text
+
+actual_result = driver.find_element(By.XPATH, "//div[@class='help-content']/h1").text
+expected_result = 'Cancel Items or Orders'
+
+assert actual_result == expected_result, f'Expected {expected_result}, but we got {actual_result}'
 
 print('Test case pass')
 driver.quit()

@@ -1,6 +1,9 @@
 # Created by ntere at 12/2/2021
-Feature: # Enter feature name here
-  # Enter feature description here
+Feature: Cancel order tests
 
-  Scenario: # Enter scenario name here
-    # Enter steps here
+
+  Scenario: User able to see Cancel items or orders
+    Given Open the amazon help link
+    When type in cancel order on the search bar
+
+    Then Verify result have "Cancel Items or Orders"
