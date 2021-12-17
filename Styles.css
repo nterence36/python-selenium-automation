@@ -1,0 +1,29 @@
+
+div{
+     background-image: url("/image/rice.jpg");
+}
+h1{
+    background-color: beige;
+}
+.header{
+     background-color: aqua;
+
+}
+
+h2{
+    background-color: darkgrey;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: darkblue;
+}
+.Section{
+
+    font-size: 18px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+ol{
+    background-color: aqua;
+}
