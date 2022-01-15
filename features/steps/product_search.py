@@ -2,30 +2,42 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-
-SEARCH_INPUT = (By.NAME, 'q')
-SEARCH_SUBMIT = (By.NAME, 'btnK')
-
-
-@given('Open Google page')
-def open_google(context):
-    context.driver.get('https://www.google.com/')
+COLOR_OPTIONS = (By.CSS_SELECTOR, '#variation_color_name li')
+SELECTED_COLOR = (By.CSS_SELECTOR, '#variation_color_name .selection')
 
 
-@when('Input {search_word} into search field')
-def input_search(context, search_word):
-    search = context.driver.find_element(*SEARCH_INPUT)
-    search.clear()
-    search.send_keys(search_word)
-    sleep(4)
+@given('Open Amazon product {query}')
+def Open_product_page(context, query):
+    context.driver.get(f'https://www.amazon.com/dp/{query}')
 
 
-@when('Click on search icon')
-def click_search_icon(context):
-    context.driver.find_element(*SEARCH_SUBMIT).click()
-    sleep(1)
+@then('Verify user can click through colors')
+def verify_can_click_colors(context):
+    expected_colors = ['Black-1', 'Dark Blue', 'Red Wine']
+
+    colors = context.driver.find_elements(*COLOR_OPTIONS)
+    for i in range(len(colors)):
+        colors[i].click()
+        actual_color = context.driver.find_element(*SELECTED_COLOR).text
+
+        assert actual_color == expected_colors[i], f'Expected {expected_colors[i]}, but got {actual_color}'
 
 
-@then('Product results for {search_word} are shown')
-def verify_found_results_text(context, search_word):
-    assert search_word.lower() in context.driver.current_url.lower(), f"Expected query not in {context.driver.current_url.lower()}"
+   # OPTION
+
+
+
+@then('Verify user can click shoes colors')
+def Verify_user_click_dif_colors(context):
+    expected_colors = ['Beige Pu', 'Black Micro', 'Blush Pu', 'Camel Pu', 'Charcoal Pu', 'Tan Pu']
+
+    colors = context.driver.find_elements(*COLOR_OPTIONS)
+
+    actual_colors = []
+    for color in colors[:6]:
+       color.click()
+       actual_colors += [context.driver.find_element(*SELECTED_COLOR).text]
+       print(actual_colors)
+    assert actual_colors == expected_colors, f'Expected {expected_colors} but got {actual_colors}'
+
+
